@@ -31,7 +31,7 @@ type Config struct {
 	TelegramDataDir string `envconfig:"TELEGRAM_DATA_DIR" default:"./telegram-data"`
 	ServerWorkDir   string `envconfig:"TELEGRAM_SERVER_WORK_DIR" default:"/var/lib/telegram-bot-api"`
 
-	APIUrl string `envconfig:"FLOXFLIX_API_URL"`
+	APIUrl string `envconfig:"API_URL"`
 
 	Debug bool
 

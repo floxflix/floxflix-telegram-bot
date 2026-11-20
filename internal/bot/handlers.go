@@ -448,19 +448,19 @@ var episodeSteps = []step{
 	},
 	{
 		stage:     stageAwaitingSkipIntroStartTime,
-		ask:       ask("Send me the skip-intro start time (mm:ss)."),
+		ask:       ask("Send me the skip-intro start time (hh:mm:ss)."),
 		skippable: true,
 		assign:    timecode(func(sess *session) *string { return &sess.SkipIntroStartTime }),
 	},
 	{
 		stage:     stageAwaitingSkipIntroEndTime,
-		ask:       ask("Send me the skip-intro end time (mm:ss)."),
+		ask:       ask("Send me the skip-intro end time (hh:mm:ss)."),
 		skippable: true,
 		assign:    timecode(func(sess *session) *string { return &sess.SkipIntroEndTime }),
 	},
 	{
 		stage:     stageAwaitingNextEpisode,
-		ask:       ask("Send me the time when the next-episode button shows up (mm:ss)."),
+		ask:       ask("Send me the time when the next-episode button shows up (hh:mm:ss)."),
 		skippable: true,
 		assign:    timecode(func(sess *session) *string { return &sess.NextEpisode }),
 	},
@@ -647,7 +647,7 @@ func assignTitleUUID(sess *session, text string) error {
 func timecode(field func(*session) *string) func(*session, string) error {
 	return func(sess *session, text string) error {
 		if !validTimecode(text) {
-			return errors.New("That is not a valid time. Send seconds (90), mm:ss (1:30) or hh:mm:ss.")
+			return errors.New("That is not a valid time. Send seconds (90), hh:mm:ss (00:01:30) or hh:mm:ss.")
 		}
 		*field(sess) = text
 		return nil
