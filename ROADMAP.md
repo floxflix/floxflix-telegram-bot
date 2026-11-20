@@ -5,7 +5,7 @@ transcoded by the API, without touching a shell.
 
 Status: **the create path works end to end.** The bot can create a movie, create a show with its first
 episode, and append an episode to an existing show picked by title. It cannot change anything it has
-already published. Owner: @elvus.
+already published.
 
 ---
 
@@ -48,8 +48,7 @@ they are the ones that need a UI decision (does deleting an item delete its file
 ## 3. Prerequisite: the bot routes are unauthenticated
 
 Every row in §2 is a *new write route* on `/v1/api/bot/*`, which is currently reachable without
-authentication from the public ingress (`api.floxflix.io`). Adding edit and delete on top of that turns a
-data-integrity hole into a destructive one.
+authentication. Adding edit and delete on top of that turns a data-integrity hole into a destructive one.
 
 So the shared-secret middleware from the floxflix roadmap (§3.1) lands first, and each new route is
 registered inside the protected group from day one — not "later, once it works".
