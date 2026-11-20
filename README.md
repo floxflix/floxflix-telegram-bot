@@ -81,3 +81,8 @@ make test
 They cover what can break silently: name sanitizing (traversal, truncation),
 path translation from container to host, destination deduplication and the file
 move.
+
+## Roadmap
+
+The create path works end to end. Editing, replacing and deleting items already
+in the catalog does not — see [`ROADMAP.md`](ROADMAP.md).
