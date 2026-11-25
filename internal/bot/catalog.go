@@ -133,9 +133,9 @@ func (b *Bot) buildEpisode(sess session, videoPath string) Episode {
 		FilePath:                b.catalogPath(videoPath),
 		Status:                  catalogStatus,
 		SkipIntroDisplayMessage: setDefault(sess.SkipIntroDisplayMessage, "Skip Intro"),
-		IntroStartTime:          setDefault(normalizeTimecode(sess.SkipIntroStartTime), "00:00:00"),
-		IntroEndTime:            setDefault(normalizeTimecode(sess.SkipIntroStartTime), "00:00:00"),
-		NextEpisodeTime:         setDefault(normalizeTimecode(sess.SkipIntroStartTime), "00:00:00"),
+		IntroStartTime:          setDefault(sess.SkipIntroStartTime, "00:00:00"),
+		IntroEndTime:            setDefault(sess.SkipIntroStartTime, "00:00:00"),
+		NextEpisodeTime:         setDefault(sess.SkipIntroStartTime, "00:00:00"),
 	}
 }
 
@@ -298,23 +298,4 @@ func ratingOf(text string) float64 {
 		return 0
 	}
 	return rating
-}
-
-// normalizeTimecode takes "90", "1:30" and "1:02:03" to the hh:mm:ss form the
-// API stores. Text that cannot be read is sent as is: the step already
-// validated it, and there is nobody to report it to here.
-func normalizeTimecode(text string) string {
-	if text == "" {
-		return ""
-	}
-
-	var total int
-	for part := range strings.SplitSeq(text, ":") {
-		n, err := strconv.Atoi(part)
-		if err != nil {
-			return text
-		}
-		total = total*60 + n
-	}
-	return fmt.Sprintf("%02d:%02d:%02d", total/3600, total/60%60, total%60)
 }

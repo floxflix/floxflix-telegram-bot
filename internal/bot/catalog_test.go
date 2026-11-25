@@ -141,20 +141,3 @@ func TestCatalogPathLeavesLinksAlone(t *testing.T) {
 		t.Errorf("catalogPath = %q, want empty", got)
 	}
 }
-
-func TestNormalizeTimecode(t *testing.T) {
-	tests := map[string]string{
-		"":        "",
-		"90":      "00:01:30",
-		"0:30":    "00:00:30",
-		"1:30":    "00:01:30",
-		"1:02:03": "01:02:03",
-		"42:10":   "00:42:10",
-	}
-
-	for in, want := range tests {
-		if got := normalizeTimecode(in); got != want {
-			t.Errorf("normalizeTimecode(%q) = %q, want %q", in, got, want)
-		}
-	}
-}

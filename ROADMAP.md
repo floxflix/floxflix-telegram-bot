@@ -59,8 +59,9 @@ Details and file references live in the floxflix roadmap, §3; this is the bot's
 
 - [ ] Skip-intro and next-episode times are all published from the start time; two tests are red
       (`go test ./...`) — floxflix §3.3.
-- [ ] `.env.example` and README document bare `BOT_TOKEN`/`ALLOWED_USER_IDS`, while `config.go` reads
-      `FLOXFLIX_*` — copying the example fails at startup. floxflix §3.4.
+- [ ] `.env.example`, README and `config.go` now agree on the `FLOXFLIX_` prefix, but an empty
+      `FLOXFLIX_API_URL` is still silent: files are saved and the chat says nothing about the catalog
+      being skipped. Warn at startup or require it. floxflix §3.4.
 - [ ] `Dockerfile` ends with `USER floxflix` but never creates the account; only the k8s
       `runAsUser: 101` hides it. floxflix §3.5.
 - [ ] No duplicate protection: `update_id` is ignored and `FileUniqueID` only names fallbacks, so a
@@ -68,8 +69,8 @@ Details and file references live in the floxflix roadmap, §3; this is the bot's
 - [ ] No size or free-space preflight before a multi-GB download. floxflix §3.7.
 - [ ] The bot token is plaintext in `.env` and `k8s/secret-telegram-bot.yaml` (both gitignored, never
       committed). Move to a managed secret. floxflix §3.2.
-- [ ] README drift: "everything but the title can be skipped" (four steps are not skippable), and the
-      episode filename described there is not the one `saveMedia` writes. floxflix §3.10.
+- [ ] `internal/bot.SanitizeFilename` and `internal/storage.SanitizeName` apply different rules to the
+      same input. floxflix §3.10.
 
 ## 5. Not in this repo
 
